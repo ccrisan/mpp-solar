@@ -130,12 +130,14 @@ class mppCommands:
                 s.write_timeout = 1 + x
                 s.flushInput()
                 s.flushOutput()
-                s.write(command.full_command.encode())
+                encoded_command = bytearray(ord(x) for x in command.full_command)
+                s.write(encoded_command)
                 time.sleep(0.5 * x)  # give serial port time to receive the data
                 response_line = s.readline()
                 logging.debug('serial response was: %s', response_line)
-                if command.is_response_valid(response_line):
-                    command.set_response(response_line)
+                decoded_response = ''.join(chr(x) for x in bytearray(response_line))
+                if command.is_response_valid(decoded_response):
+                    command.set_response(decoded_response)
                     # return response without the start byte and the crc
                     return command
             logging.critical('Command execution failed')
