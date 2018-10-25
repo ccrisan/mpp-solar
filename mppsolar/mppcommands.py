@@ -130,7 +130,7 @@ class mppCommands:
                 s.write_timeout = 1 + x
                 s.flushInput()
                 s.flushOutput()
-                s.write(command.full_command)
+                s.write(command.full_command.encode())
                 time.sleep(0.5 * x)  # give serial port time to receive the data
                 response_line = s.readline()
                 logging.debug('serial response was: %s', response_line)
