@@ -192,13 +192,10 @@ class mppCommand(object):
             # eg. ['keyed', 'Machine type', {'00': 'Grid tie', '01': 'Off Grid', '10': 'Hybrid'}],
             elif (resp_format[0] == 'keyed'):
                 msgs[key] = [resp_format[2][result], '']
-            # eg. ['flags', 'Device status', [ ['Add SBU - No', 'Add SBU - ...
+            # eg. ['flags', 'Device status', [ 'is_load_on', 'is_charging_on' ...
             elif (resp_format[0] == 'flags'):
-                output = ''
                 for j, flag in enumerate(result):
-                    output = '{}\n\t- {}'.format(output,
-                                                 resp_format[2][j][int(flag)])
-                msgs[key] = [output, '']
+                    msgs[resp_format[2][j]] = [int(flag), 'True - 1/False - 0']
             # eg. ['stat_flags', 'Warning status', ['Reserved', 'Inver...
             elif (resp_format[0] == 'stat_flags'):
                 output = ''
