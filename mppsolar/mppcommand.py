@@ -146,6 +146,13 @@ class mppCommand(object):
                 logging.debug('Response valid as setter with NAK resp')
                 return True
             return False
+        else:
+            if (response == '(ACK9 \r'):
+                logging.debug('ACK is not a valid response for queries')
+                return False
+            if (response == '(NAKss\r'):
+                logging.debug('NAK is not a valid response for queries')
+                return False
         # Check if valid response is defined for this command
         if (self.response_definition is None):
             logging.debug('Response invalid as no RESPONSE defined for %s', self.name)
