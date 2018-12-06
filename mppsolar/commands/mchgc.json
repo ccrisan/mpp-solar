@@ -1,0 +1,13 @@
+{
+    "name": "MCHGC",
+    "description": "Set Max Charging Current",
+    "type": "SETTER",
+    "response": [
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+    "test_responses": [
+           "(NAKss\r",
+           "(ACK9 \r"
+        ],
+    "regex": "MCHGC(\\d\\d\\d)$"
+}
